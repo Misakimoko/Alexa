@@ -7,11 +7,11 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using WebApplication1.Data;
+using Lexa.Data;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Entities;
+using Lexa.Entities;
 
-namespace WebApplication1.Security;
+namespace Lexa.Security;
 
 public class TokenService : ITokenService
 {

@@ -2,11 +2,11 @@ using FastEndpoints;
 using Microsoft.Extensions.Configuration;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Data;
-using WebApplication1.Entities;
-using WebApplication1.Security;
+using Lexa.Data;
+using Lexa.Entities;
+using Lexa.Security;
 
-namespace WebApplication1.Endpoints;
+namespace Lexa.Endpoints;
 
 public class LoginRequest
 {

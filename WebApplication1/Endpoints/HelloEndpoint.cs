@@ -1,7 +1,7 @@
 using FastEndpoints;
 using System.Threading;
 
-namespace WebApplication1.Endpoints;
+namespace Lexa.Endpoints;
 
 public class HelloRequest
 {

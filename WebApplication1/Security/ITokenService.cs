@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
-using WebApplication1.Entities;
+using Lexa.Entities;
 
-namespace WebApplication1.Security;
+namespace Lexa.Security;
 
 public interface ITokenService
 {

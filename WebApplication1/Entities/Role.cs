@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace WebApplication1.Entities;
+namespace Lexa.Entities;
 
 public class Role
 {

@@ -1,8 +1,8 @@
 using FastEndpoints;
-using WebApplication1.Data;
-using WebApplication1.Entities;
+using Lexa.Data;
+using Lexa.Entities;
 
-namespace WebApplication1.Endpoints;
+namespace Lexa.Endpoints;
 
 public class CreateUserRequest
 {

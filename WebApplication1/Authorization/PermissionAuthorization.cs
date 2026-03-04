@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Caching.Memory;
 using System.Threading.Tasks;
-using WebApplication1.Data;
+using Lexa.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
-namespace WebApplication1.Authorization;
+namespace Lexa.Authorization;
 
 public class PermissionRequirement : IAuthorizationRequirement
 {

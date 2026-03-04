@@ -3,9 +3,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using WebApplication1.Entities;
+using Lexa.Entities;
 
-namespace WebApplication1.Data;
+namespace Lexa.Data;
 
 public static class SeedData
 {

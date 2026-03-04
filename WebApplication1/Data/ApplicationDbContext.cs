@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Entities;
+using Lexa.Entities;
 
-namespace WebApplication1.Data;
+namespace Lexa.Data;
 
 [RegisterScoped]
 public class ApplicationDbContext : DbContext

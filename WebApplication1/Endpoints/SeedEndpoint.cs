@@ -1,10 +1,10 @@
 using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
-using WebApplication1.Data;
-using WebApplication1.Authorization;
+using Lexa.Data;
+using Lexa.Authorization;
 
-namespace WebApplication1.Endpoints;
+namespace Lexa.Endpoints;
 
 public class SeedResponse
 {

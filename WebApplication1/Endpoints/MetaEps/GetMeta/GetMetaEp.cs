@@ -1,8 +1,8 @@
-﻿using WebApplication1.Data;
+﻿using Lexa.Data;
 using FastEndpoints;
 using FastEndpoints.Swagger;
-using WebApplication1.Data.MetaData;
-namespace WebApplication1.Endpoints.MetaEps.GetMeta
+using Lexa.Data.MetaData;
+namespace Lexa.Endpoints.MetaEps.GetMeta
 {
     //实现一个endpoint类，没有请求和响应模型
     public class GetMetaEp(MetaService metaService) : EndpointWithoutRequest
@@ -17,7 +17,7 @@ namespace WebApplication1.Endpoints.MetaEps.GetMeta
         }
         public override async Task HandleAsync(CancellationToken ct)
         {
-            var res = await metaService.GetAllTablesAsync();
+            var res = await metaService.GetAllTableInfoAsync();
             if (res != null) { await SendAsync(res); }
         }
     }

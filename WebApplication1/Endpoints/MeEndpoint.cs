@@ -2,10 +2,10 @@ using FastEndpoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
-using WebApplication1.Data;
-using WebApplication1.Entities;
+using Lexa.Data;
+using Lexa.Entities;
 
-namespace WebApplication1.Endpoints;
+namespace Lexa.Endpoints;
 
 [Authorize]
 public class MeResponse

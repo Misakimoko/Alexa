@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using WebApplication1.Data;
+using Lexa.Data;
 
 #nullable disable
 
-namespace WebApplication1.Migrations
+namespace Lexa.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     [Migration("20260303054418_InitialCreate")]
@@ -24,7 +24,7 @@ namespace WebApplication1.Migrations
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
 
-            modelBuilder.Entity("WebApplication1.Entities.Permission", b =>
+            modelBuilder.Entity("Lexa.Entities.Permission", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -41,7 +41,7 @@ namespace WebApplication1.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("WebApplication1.Entities.Role", b =>
+            modelBuilder.Entity("Lexa.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace WebApplication1.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("WebApplication1.Entities.RolePermission", b =>
+            modelBuilder.Entity("Lexa.Entities.RolePermission", b =>
                 {
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
@@ -73,7 +73,7 @@ namespace WebApplication1.Migrations
                     b.ToTable("RolePermissions");
                 });
 
-            modelBuilder.Entity("WebApplication1.Entities.User", b =>
+            modelBuilder.Entity("Lexa.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace WebApplication1.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("WebApplication1.Entities.UserRole", b =>
+            modelBuilder.Entity("Lexa.Entities.UserRole", b =>
                 {
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -112,15 +112,15 @@ namespace WebApplication1.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("WebApplication1.Entities.RolePermission", b =>
+            modelBuilder.Entity("Lexa.Entities.RolePermission", b =>
                 {
-                    b.HasOne("WebApplication1.Entities.Permission", "Permission")
+                    b.HasOne("Lexa.Entities.Permission", "Permission")
                         .WithMany("RolePermissions")
                         .HasForeignKey("PermissionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication1.Entities.Role", "Role")
+                    b.HasOne("Lexa.Entities.Role", "Role")
                         .WithMany("RolePermissions")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -131,15 +131,15 @@ namespace WebApplication1.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("WebApplication1.Entities.UserRole", b =>
+            modelBuilder.Entity("Lexa.Entities.UserRole", b =>
                 {
-                    b.HasOne("WebApplication1.Entities.Role", "Role")
+                    b.HasOne("Lexa.Entities.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WebApplication1.Entities.User", "User")
+                    b.HasOne("Lexa.Entities.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -150,19 +150,19 @@ namespace WebApplication1.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("WebApplication1.Entities.Permission", b =>
+            modelBuilder.Entity("Lexa.Entities.Permission", b =>
                 {
                     b.Navigation("RolePermissions");
                 });
 
-            modelBuilder.Entity("WebApplication1.Entities.Role", b =>
+            modelBuilder.Entity("Lexa.Entities.Role", b =>
                 {
                     b.Navigation("RolePermissions");
 
                     b.Navigation("UserRoles");
                 });
 
-            modelBuilder.Entity("WebApplication1.Entities.User", b =>
+            modelBuilder.Entity("Lexa.Entities.User", b =>
                 {
                     b.Navigation("UserRoles");
                 });

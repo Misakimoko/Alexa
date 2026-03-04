@@ -1,10 +1,11 @@
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.EntityFrameworkCore;
-using WebApplication1.Data;
+using Lexa.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using SqlSugar;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -43,6 +44,29 @@ builder.Services.AddDbContext<ApplicationDbContext>((sp, options) =>
     }
 });
 
+//添加sqlsugarscop依赖注入
+builder.Services.AddScoped<ISqlSugarClient>(sp =>
+{
+    var config = builder.Configuration;
+    var provider = config["Database:Provider"] ?? string.Empty;
+    var conn = config.GetConnectionString("DefaultConnection") ?? config["Database:ConnectionString"] ?? "Data Source=app.db";
+    var dbType = provider switch
+    {
+        "SqlServer" => DbType.SqlServer,
+        "PostgreSQL" => DbType.PostgreSQL,
+        "MySql" => DbType.MySql,
+        _ => DbType.Sqlite
+    };
+    return new SqlSugarClient(new ConnectionConfig
+    {
+        ConnectionString = conn,
+        DbType = dbType,
+        IsAutoCloseConnection = true
+    });
+});
+
+
+
 // configure authentication (JWT)
 var jwtKey = builder.Configuration["Jwt:Key"] ?? "please-change-this-secret";
 var jwtIssuer = builder.Configuration["Jwt:Issuer"] ?? "myapp";
@@ -69,7 +93,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 // register token service
-builder.Services.AddScoped<WebApplication1.Security.ITokenService, WebApplication1.Security.TokenService>();
+builder.Services.AddScoped<Lexa.Security.ITokenService, Lexa.Security.TokenService>();
 
 // auto-register services marked with AutoregisterInject attributes
 var app = builder.Build();

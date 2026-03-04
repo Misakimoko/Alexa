@@ -1,4 +1,4 @@
-﻿namespace WebApplication1.Data.MetaData
+﻿namespace Lexa.Data.MetaData
 {
 
 
@@ -11,5 +11,6 @@
         public bool IsNullable { get; set; }
         public string ColumnComment { get; set; }
         public bool IsPrimaryKey { get; set; }
+        public bool IsIdentity { get; set; }
     }
 }

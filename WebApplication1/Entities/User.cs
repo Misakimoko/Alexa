@@ -1,4 +1,4 @@
-namespace WebApplication1.Entities;
+namespace Lexa.Entities;
 
 public class User
 {
