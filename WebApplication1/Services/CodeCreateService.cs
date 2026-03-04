@@ -1,4 +1,5 @@
 ﻿using Lexa.Data.MetaData;
+using System.Text;
 
 namespace Lexa.Services
 {
@@ -10,6 +11,8 @@ namespace Lexa.Services
         public string _entityNamespace = "namespace Lexa.Entities;";
         public string _entityOutputPath = @"E:\Codes\test1\Entities";
         public string _contextOutputPath = @"E:\Codes\test1\Data";
+        public string _endpointOutputPath = @"E:\Codes\test1\Endpoints";
+        public string _endpointnamespace = "namespace Lexa.Endpoints;";
 
         public void EntitiesGenerator(List<SystemTableInfo> tableInfos)
         {
@@ -146,6 +149,118 @@ using Lexa.Data;
             }
             EntityColumnCode += "\n\t\t\t}";
             return EntityColumnCode;
+        }
+
+        //根据表信息生辰端点代码
+        public void EndpointGenerator(List<SystemTableInfo> tableInfos)
+        {
+            foreach(var tableInfo in tableInfos)
+            {
+                var tableName = _classNameOptimizer.Optimize(tableInfo.TableName);
+
+                GenerateGetEp(tableInfo);
+                GenerateAddEp(tableInfo);
+                GenerateUpdateEp(tableInfo);
+                GenerateDeleteEp(tableInfo);
+
+
+                
+            }
+
+
+
+            
+        }
+        //生成删除端点
+        private void GenerateDeleteEp(SystemTableInfo tableInfo)
+        {
+        }
+        //生成更新端点
+        private void GenerateUpdateEp(SystemTableInfo tableInfo)
+        {
+        }
+        //生成添加端点
+        private void GenerateAddEp(SystemTableInfo tableInfo)
+        {
+        }
+        //生成查询端点
+        private void GenerateGetEp(SystemTableInfo tableInfo)
+        {
+            var entityName = _classNameOptimizer.Optimize(tableInfo.TableName);
+            var endPointName = $"Get{entityName}Endpoint";
+            var requestName = $"Get{entityName}Request";
+            var responseName = $"Get{entityName}Response";
+
+            //生成Rquest类
+            StringBuilder RequestCode = new StringBuilder();
+            RequestCode.AppendLine(@$"using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
+using {_entityNamespace};
+using {_contextNamespace};");
+            RequestCode.AppendLine(_endpointnamespace);
+            RequestCode.AppendLine("{");
+            RequestCode.AppendLine($"    public class {requestName}");
+            RequestCode.AppendLine("    {");
+            foreach(var colum in tableInfo.Columns)
+            {
+                RequestCode.AppendLine($"        public {MapDataType(colum.DataType)}? {colum.ColumnName} {{get;set;}} ");
+            }
+            RequestCode.AppendLine("    }");
+            RequestCode.AppendLine("}");
+
+
+            //生成Response类
+            StringBuilder ResponseCode = new StringBuilder();
+            ResponseCode.AppendLine(@$"using FastEndpoints;
+using Microsoft.AspNetCore.Authorization;
+using {_entityNamespace};
+using {_contextNamespace};");
+            ResponseCode.AppendLine(_endpointnamespace);
+            ResponseCode.AppendLine("{");
+            ResponseCode.AppendLine($"    public class {requestName}");
+            ResponseCode.AppendLine("    {");
+            foreach (var colum in tableInfo.Columns)
+            {
+                ResponseCode.AppendLine($"        public {MapDataType(colum.DataType)}? {colum.ColumnName} {{get;set;}} ");
+            }
+            ResponseCode.AppendLine("    }");
+            ResponseCode.AppendLine("}");
+
+
+            //生成Endpoint类
+            StringBuilder EndpointCode = new StringBuilder();
+            EndpointCode.AppendLine("using FastEndpoints;");
+            EndpointCode.AppendLine("using Microsoft.AspNetCore.Authorization;");
+            EndpointCode.AppendLine($"using {_entityNamespace}");
+            EndpointCode.AppendLine($"using {_contextNamespace}");
+            EndpointCode.AppendLine($"using {_endpointnamespace}");
+            EndpointCode.AppendLine($"namespace {_endpointnamespace}");
+            EndpointCode.AppendLine("{");
+            EndpointCode.AppendLine($"   public class {endPointName}(AppDbContext context) : Endpoint<{requestName},{responseName}>");
+            EndpointCode.AppendLine("    {");
+            EndpointCode.AppendLine("       public override void Configure()");
+            EndpointCode.AppendLine("        {");
+            EndpointCode.AppendLine($"           Get(\"/api/get{entityName}\");");
+            EndpointCode.AppendLine($"           AllowAnonymous();\r\n            // 更改swagger tag\r\n            Summary(s => s.Summary = \"获取数据库表信息\");\r\n            //设置swagger标签\r\n            Description(d =>d.WithTags(\"{entityName}\"));");
+            EndpointCode.AppendLine("        }");
+            EndpointCode.AppendLine($"        public override async Task HandleAsync({requestName} req, CancellationToken ct)");
+            EndpointCode.AppendLine("        {");
+            EndpointCode.AppendLine($"           var query = context.{entityName}DbSet.AsQueryable();");
+            EndpointCode.AppendLine("           if(req.Id != null)");
+            EndpointCode.AppendLine("           {");
+            foreach(var colum in tableInfo.Columns)
+            {
+                if(colum.IsPrimaryKey)
+                {
+                    EndpointCode.AppendLine($"              query = query.Where(x => x.{colum.ColumnName} == req.{colum.ColumnName});");
+                }
+            }
+            EndpointCode.AppendLine("           }");
+            EndpointCode.AppendLine("           var data = await query.ToListAsync(ct);");
+            EndpointCode.AppendLine($"           var response = data.select(d=>new {responseName} ( ");
+            //EndpointCode.AppendLine(string.Join(",\n", tableInfo.Columns.Select(x => $"d.{x.ColumnName}")));
+
+            EndpointCode.AppendLine("           await SendAsync(response, cancellation: ct);");
         }
     }
 }

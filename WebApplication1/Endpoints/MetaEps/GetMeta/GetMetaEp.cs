@@ -13,7 +13,8 @@ namespace Lexa.Endpoints.MetaEps.GetMeta
             AllowAnonymous();
             // 更改swagger tag
             Summary(s => s.Summary = "获取数据库表信息");
-             Tags("Meta");
+            //设置swagger标签
+            Description(d =>d.WithTags("Meta"));
         }
         public override async Task HandleAsync(CancellationToken ct)
         {
