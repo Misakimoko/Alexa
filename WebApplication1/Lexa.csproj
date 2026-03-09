@@ -1,15 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>net10.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.3" />
-    <PackageReference Include="FastEndpoints" Version="5.4.0" />
-    <PackageReference Include="FastEndpoints.Swagger" Version="5.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.13" />
+    <PackageReference Include="FastEndpoints" Version="5.34.0" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="5.34.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +35,7 @@
   <ItemGroup>
     <PackageReference Include="AutoregisterInject" Version="1.4.1" />
     <PackageReference Include="SqlSugarCore" Version="5.1.4.214" />
+    <PackageReference Include="StringTemplate4" Version="4.0.8" />
   </ItemGroup>
 
 </Project>

@@ -113,7 +113,7 @@ catch (Exception ex)
 if (app.Environment.IsDevelopment())
 {
     app.UseOpenApi();
-    app.UseSwaggerUi3();
+    app.UseSwaggerUi();
 }
 
 app.UseAuthentication();

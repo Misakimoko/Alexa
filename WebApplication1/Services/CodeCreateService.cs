@@ -261,6 +261,9 @@ using {_contextNamespace};");
             //EndpointCode.AppendLine(string.Join(",\n", tableInfo.Columns.Select(x => $"d.{x.ColumnName}")));
 
             EndpointCode.AppendLine("           await SendAsync(response, cancellation: ct);");
+            EndpointCode.AppendLine("        }");
+            EndpointCode.AppendLine("     }");
+             EndpointCode.AppendLine("}");
         }
     }
 }
